@@ -1,0 +1,122 @@
+
+package googlejampractice;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class googlejampractice {
+
+    public static void main(String[] args) {
+      
+        Scanner sc = new Scanner(System.in);
+
+        int testcases = sc.nextInt();
+        
+        for (int i = 0; i < testcases; i++) {
+
+            int s = sc.nextInt();
+            
+      
+            int maze [][] = new int [s][s];
+            
+            for (int filas = 0; filas < s; filas++) {
+                for (int columnas = 0; columnas < s; columnas++) {
+                    maze[filas][columnas]=sc.nextInt();
+                }
+            }
+            
+            //System.out.println("");
+            
+            ArrayList<Integer> lista = mover(maze);
+            
+            int max = Collections.max(lista);
+            
+            ArrayList<Integer> auxiliar = new ArrayList<>();
+            
+            for (int filas = 0; filas < s; filas++) {
+                for (int columnas = 0; columnas < s; columnas++) {
+                    auxiliar.add(maze[filas][columnas]);
+                }
+            }
+            
+            ArrayList<Integer> auxiliar2 = new ArrayList<>();
+            
+            for (int j = 0; j < lista.size(); j++) {
+                if(lista.get(j)==max){
+                    auxiliar2.add(auxiliar.get(j));
+                }
+            }
+            
+            int min = Collections.min(auxiliar2);
+            
+            System.out.println("Case #"+(i+1)+": "+min+" "+max);
+            
+        }
+      
+    }
+
+public static ArrayList<Integer> mover(int maze[][]){
+    
+    int cont=1;
+    boolean aux = true;
+    
+    ArrayList<Integer> contadores = new ArrayList<>();
+    
+    for (int filas = 0; filas < maze.length; filas++) {
+        for (int columnas = 0; columnas < maze.length; columnas++) {
+            
+            int f = filas;
+            int c = columnas;
+            
+            do{
+           //Mover derecha
+            if( (c!=(maze.length-1)) && ((maze[f][c+1])==((maze[f][c])+1)) ){
+               cont++;
+               c++;
+               
+            }
+            
+            //Mover izquierda
+            else if( (c!=(0)) && ((maze[f][c-1])==((maze[f][c])+1)) ){
+                cont++;
+                c--;
+                
+            }
+            
+            //Mover abajo
+            else if( (f!=(maze.length-1)) && ((maze[f+1][c])==((maze[f][c])+1)) ){
+                cont++;
+                f++;
+                
+            }
+            
+            //Mover arriba
+            else if( (f!=(0)) && ((maze[f-1][c])==((maze[f][c])+1)) ){
+                cont++;
+                f--;
+                
+            }
+            
+            //else
+            else{
+                //aux = false;
+                break;
+                
+            }
+            
+            }while(true);
+            
+            contadores.add(cont);
+            cont=1;
+            
+            
+        }
+    }
+    
+    return contadores;
+}
+    
+}
+
+
